@@ -4,6 +4,7 @@
 #include <vector>
 #include <algorithm>
 #include <map>
+#include <vector>
 
 class TwoToOne
 {
@@ -17,6 +18,32 @@ std::string TwoToOne::longest(const std::string &s1, const std::string &s2)
     temp.erase(std::unique(temp.begin(), temp.end()), temp.end());
     return temp;
 }
+
+class ExampleClass
+{
+
+private:
+
+public:
+    int returnedFunction();
+    void increment(){
+        *temporary += 1;
+        std::cout << *temporary << std::endl;
+    }
+    int* temporary;
+    int NotPointerVar;
+};
+
+int ExampleClass::returnedFunction() 
+{
+    int temp;
+    NotPointerVar = 5;
+    temporary = &NotPointerVar;
+    temp = *temporary;
+    std::cout << temp << std::endl;
+    return temp;
+}
+
 
 
 std::string SeriesSum(int loop)
@@ -190,21 +217,166 @@ std::vector<unsigned long long> partsSum(const std::vector<unsigned long long>& 
     temp.push_back(0);
     return temp;
 }
+/*
+ * A Narcissistic Number is a positive number which is the sum of its own digits, each raised
+ * to the power of the number of digits in a given base. In this Kata, we will restrict ourselves to decimal (base 10).
+ */
+bool narcissistic(int value)
+{
+    int tempValue = value;
+    bool state = true;
+    if (tempValue < 0) {
+        state = false;
+    } else if (!tempValue) {
+        state = true;
+    } else {
+        int dec = 10;
+        int numberDigits = 0;
+        std::vector<int> number;
+        while (tempValue) {
+            number.push_back(tempValue % dec);
+            tempValue = tempValue / 10;
+            ++numberDigits;
+        }
+        int res = 0;
+        for (auto item : number) {
+            res += std::pow(item, numberDigits);
+        }
+        if (res != value)
+            state = false;
+    }
+    return state;
+}
+
+class Node
+{
+public:
+    Node() {}
+    void setNext(Node* _next)
+    {
+        next = _next;
+    }
+    Node* getNext() const
+    {
+        return next;
+    }
+private:
+    Node* next;
+};
+
+/*
+ *You are given a node that is the beginning of a linked list. This list always contains
+ *a tail and a loop. Your objective is to determine the length of the loop.
+ *    Node n1, n2, n3, n4, n5;
+    n1.setNext(&n2);
+    n2.setNext(&n3);
+    n3.setNext(&n5);
+    n5.setNext(&n4);
+    n4.setNext(&n1);
+    std::cout << getLoopSize(&n1) << std::endl;
+ */
+
+int getLoopSize(Node* startNode)
+{
+    int loop = 1;
+    std::vector<Node*> nodeVector;
+    Node *firstNode = startNode->getNext();
+    if (firstNode == startNode) {
+        return loop;
+    }
+    nodeVector.push_back(firstNode);
+    Node *tempNode = firstNode->getNext();
+    while (true) {
+        if (tempNode == firstNode) {
+            return loop;
+        }
+        auto res = std::find(nodeVector.begin(), nodeVector.end(), tempNode);
+        if (res != nodeVector.end()) {
+            return nodeVector.end() - res;
+        }
+        nodeVector.push_back(tempNode);
+
+        firstNode = tempNode;
+        tempNode = tempNode->getNext();
+
+    }
+    return 0;
+}
+
+
+/*
+ * josephus([1,2,3,4,5,6,7],3)==[3,6,2,7,5,1,4]
+ */
+std::vector <int> josephus(std::vector <int> items, int k)
+{
+    std::vector<int> resultVector = {};
+    int temp = 1;
+    if (k == 1) {
+        return items;
+    } else if (items.empty()) {
+        return resultVector;
+    }
+    while (!items.empty()) {
+        if (items.size() == 1) {
+            resultVector.push_back(items.front());
+            break;
+        }
+        for (size_t item(0); item < items.size(); ++item) {
+            if (temp >= (k)) {
+                temp = 1;
+                resultVector.push_back(items.at(item));
+                items.erase(items.begin() + item);
+                --item;
+            } else {
+                ++temp;
+            }
+        }
+    }
+    return resultVector;
+}
+
+std::vector <int> josephusMod(std::vector <int> items, int k)
+{
+    std::vector<int> resultVector = {};
+    int tempK = k - 1;
+    tempK %= items.size();
+    std::cout << 4 % 7 << std::endl;
+    while (items.size())
+    {
+        tempK %= items.size();
+        resultVector.push_back(items[tempK]);
+        items.erase(items.begin()+tempK);
+        tempK += k-1;
+    }
+    return resultVector;
+}
 
 int main()
 {
-    TwoToOne cls;
-    cls.longest("aretheyhere", "yestheyarehere");
-    // aehrsty
-    std::vector<unsigned long long> vec = {0, 1, 3, 6, 10};
-    // std::vector<int> res =  snail({{1,2,3}, {8,9,4}, {7,6,5}});
-    // std::vector<int> res = solve(vec);
-    std::vector<unsigned long long> out = partsSum(vec);
+    // ExampleClass cls;
+    // int returnedNumber = cls.returnedFunction();
+    // std::cout << returnedNumber << std::endl;
+    // cls.increment();
+    // std::cout << returnedNumber << std::endl;
+    // TwoToOne cls;
+    // cls.longest("aretheyhere", "yestheyarehere");
+    // // aehrsty
+    // std::vector<unsigned long long> vec = {0, 1, 3, 6, 10};
+    // // std::vector<int> res =  snail({{1,2,3}, {8,9,4}, {7,6,5}});
+    // // std::vector<int> res = solve(vec);
+    // std::vector<unsigned long long> out = partsSum(vec);
     // for (auto i : out) {
     //     std::cout << i << std::endl;
     // }
     // for(auto i: res) {
     //     std::cout << i << std::endl;
     // }
+//    std::vector<int> out = josephus({1, 2, 3, 4, 5, 6, 7}, 5);
+    std::vector<int> out = test({1, 2, 3, 4, 5, 6, 7}, 5);
+    for (auto item : out) {
+        std::cout << item;
+    }
+    std::cout << std::endl;
+
     return 0;
 }
