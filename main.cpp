@@ -350,6 +350,47 @@ std::vector <int> josephusMod(std::vector <int> items, int k)
     }
     return resultVector;
 }
+/// leetcode
+// 123 -> 321
+int reversDigits(int32_t source)
+{
+    int32_t temp = source;
+//    const int8_t shift = sizeof(source) * 8 - 1;
+//    const int8_t sign = source >> shift;
+    const int dec = 10;
+    int32_t lastValue = 0;
+
+    while (temp != 0)
+    {
+        lastValue = lastValue * dec + temp % dec;
+        qDebug() << lastValue;
+        temp = temp / dec;
+        if (lastValue && /*(sign != (lastValue >> shift) ||*/
+                          (temp && (INT32_MAX / std::abs(lastValue) < dec)))
+        {
+            lastValue = 0;
+            break;
+        }
+    }
+    return lastValue;
+}
+/*
+1,1,1,1,1 -> 1,2,3,4,5
+1 2 3 -> 1 3 6
+1 5 4 -> 1 6 10
+*/
+std::vector<int> sum1dArray(const std::vector<int>& srcArray)
+{
+    std::vector<int> outArray = srcArray;
+
+    for (size_t iter = 1; iter < srcArray.size(); ++iter)
+    {
+        outArray[iter] = outArray[iter - 1] + srcArray[iter];
+    }
+
+    return outArray;
+}
+///////////////////////////////////////
 
 int main()
 {
