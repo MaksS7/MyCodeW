@@ -393,60 +393,87 @@ std::vector<int> sum1dArray(const std::vector<int>& srcArray)
 
 //205. Isomorphic Strings
 
-void searchInVector(std::vector<int> &charCount, const std::string &str, char &oldChar, size_t item)
-{
-    char tempChar = str[item];
-
-    if (oldChar == tempChar)
-    {
-        charCount.back() += 1;
-    } else {
-        std::string::size_type n = str.find(tempChar);
-
-        if (n == item)
-        {
-            oldChar = tempChar;
-            charCount.push_back(1);
-        } else {
-            charCount[n] += 1;
-        }
-    }
-}
-
 bool isomorphicStrings(std::string s, std::string t)
 {
-    bool state = false;
-    std::vector<int> charCountS;
-    std::vector<int> charCountT;
+    bool state = true;
+    std::vector<char> charCountS;
+    std::vector<char> charCountT;
 
     if (s.size() == t.size())
     {
-        if (s.size() == 1)
+        if (s.size() > 1)
         {
-            state = true;
-        } else {
-            char oldCharS;
-            char oldCharT;
-
             for (size_t item = 0; item < s.size(); ++item)
             {
+                const char tempCharS = s[item];
+                const char tempCharT = t[item];
 
-                searchInVector(charCountS, s, oldCharS, item);
-                searchInVector(charCountT, t, oldCharT, item);
-            }
+                auto sRes = std::find(charCountS.begin(), charCountS.end(), tempCharS);
+                auto tRes = std::find(charCountT.begin(), charCountT.end(), tempCharT);
 
-            //compute result
-            std::sort(charCountS.begin(), charCountS.end());
-            std::sort(charCountT.begin(), charCountT.end());
-
-            for (size_t item = 0; item < charCountS.size(); ++item)
-            {
-                if (charCountS[item] != charCountT[item])
+                if (sRes == charCountS.end() && tRes == charCountT.end())
                 {
-                    state = false;
-                    break;
-                } else {
-                    state = true;
+                    charCountS.push_back(tempCharS);
+                    charCountT.push_back(tempCharT);
+                }
+                else
+                {
+                    auto disT = std::distance(charCountT.begin(), tRes);
+                    auto disS = std::distance(charCountS.begin(), sRes);
+                    if ((sRes == charCountS.end() || tRes == charCountT.end())
+                        || (tempCharS != *sRes && tempCharT != *tRes)
+                        || disS != disT)
+                    {
+                        state = false;
+                        break;
+                    }
+                }
+            }
+        }
+    }
+    return state;
+}
+
+bool isomorphicStrings2(std::string s, std::string t)
+{
+    bool state = true;
+    std::vector<char> charCountS;
+    std::vector<char> charCountT;
+
+    if (s.size() == t.size())
+    {
+        if (s.size() > 1)
+        {
+            for (size_t item = 0; item < s.size(); ++item)
+            {
+                const char tempCharS = s[item];
+                const char tempCharT = t[item];
+
+                auto sRes = std::find(charCountS.begin(), charCountS.end(), tempCharS);
+                auto tRes = std::find(charCountT.begin(), charCountT.end(), tempCharT);
+
+                if (sRes == charCountS.end() && tRes == charCountT.end())
+                {
+                    charCountS.push_back(tempCharS);
+                    charCountT.push_back(tempCharT);
+                }
+                else
+                {
+                    if (sRes != charCountS.end() && tRes != charCountT.end())
+                    {
+                        auto disT = std::distance(charCountT.begin(), tRes);
+                        auto disS = std::distance(charCountS.begin(), sRes);
+                        if ((tempCharS != *sRes && tempCharT != *tRes) || disS != disT)
+                        {
+                            state = false;
+                            break;
+                        }
+                    }
+                    else
+                    {
+                        state = false;
+                        break;
+                    }
                 }
             }
         }
