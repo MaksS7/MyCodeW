@@ -391,6 +391,28 @@ std::vector<int> sum1dArray(const std::vector<int>& srcArray)
     return outArray;
 }
 
+//205. Isomorphic Strings
+
+void searchInVector(std::vector<int> &charCount, const std::string &str, char &oldChar, size_t item)
+{
+    char tempChar = str[item];
+
+    if (oldChar == tempChar)
+    {
+        charCount.back() += 1;
+    } else {
+        std::string::size_type n = str.find(tempChar);
+
+        if (n == item)
+        {
+            oldChar = tempChar;
+            charCount.push_back(1);
+        } else {
+            charCount[n] += 1;
+        }
+    }
+}
+
 bool isomorphicStrings(std::string s, std::string t)
 {
     bool state = false;
