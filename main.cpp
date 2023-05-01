@@ -390,6 +390,48 @@ std::vector<int> sum1dArray(const std::vector<int>& srcArray)
 
     return outArray;
 }
+
+bool isomorphicStrings(std::string s, std::string t)
+{
+    bool state = false;
+    std::vector<int> charCountS;
+    std::vector<int> charCountT;
+
+    if (s.size() == t.size())
+    {
+        if (s.size() == 1)
+        {
+            state = true;
+        } else {
+            char oldCharS;
+            char oldCharT;
+
+            for (size_t item = 0; item < s.size(); ++item)
+            {
+
+                searchInVector(charCountS, s, oldCharS, item);
+                searchInVector(charCountT, t, oldCharT, item);
+            }
+
+            //compute result
+            std::sort(charCountS.begin(), charCountS.end());
+            std::sort(charCountT.begin(), charCountT.end());
+
+            for (size_t item = 0; item < charCountS.size(); ++item)
+            {
+                if (charCountS[item] != charCountT[item])
+                {
+                    state = false;
+                    break;
+                } else {
+                    state = true;
+                }
+            }
+        }
+    }
+    return state;
+}
+
 ///////////////////////////////////////
 
 int main()
