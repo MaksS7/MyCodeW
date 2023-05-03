@@ -598,6 +598,40 @@ int binarySearch2(const std::vector<int>& nums, int target)
     return pos;
 }
 
+
+/*
+ * 278. First Bad Version
+ */
+
+bool isBadVersion(int val)
+{
+    return 1 == val;
+}
+
+int firstBadVersion(int n)
+{
+    int res = 0;
+
+    int mid = n / 2;
+    int lBorder = 1;
+    int rBorder = n;
+
+    while(lBorder <= rBorder)
+    {
+        if (isBadVersion(mid))
+        {
+            rBorder = mid - 1;
+            res = mid;
+        }
+        else
+        {
+            lBorder = mid + 1;
+        }
+        mid = (rBorder - lBorder) / 2 + lBorder;
+    }
+    return res;
+}
+
 ///////////////////////////////////////
 
 int main()
@@ -626,8 +660,7 @@ int main()
 //        std::cout << item;
 //    }
 //    std::cout << std::endl;
-    std::vector<int> vec({2});
-    qDebug() << binarySearch(vec, 2);
+    qDebug() << firstBadVersion(1);
 
     return 0;
 }
