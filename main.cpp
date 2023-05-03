@@ -5,6 +5,7 @@
 #include <algorithm>
 #include <map>
 #include <vector>
+#include <QDebug>
 
 class TwoToOne
 {
@@ -481,6 +482,122 @@ bool isomorphicStrings2(std::string s, std::string t)
     return state;
 }
 
+/*
+ * 704. Binary Search
+*/
+
+int binarySearch(const std::vector<int>& nums, int target)
+{
+    int pos = -1;
+    if (!nums.empty()) {
+        size_t size = nums.size();
+        int lBorder = 0;
+        int rBorder = size - 1;
+        int num = 0;
+
+        if (nums[rBorder] >= target && nums[lBorder] <= target)
+        {
+            int midl = size / 2;
+
+            while (lBorder <= rBorder)
+            {
+                num = nums[midl];
+                if (num == target)
+                {
+                    pos = midl;
+                    break;
+                }
+
+                if (num <= target)
+                {
+                    lBorder = midl + 1;
+
+                }
+                else
+                {
+                    rBorder = midl - 1;
+                }
+
+                size = rBorder - lBorder;
+                midl = size / 2 + lBorder;
+            }
+        }
+
+    }
+
+    return pos;
+}
+
+int binarySearch2(const std::vector<int>& nums, int target)
+{
+    int pos = -1;
+    if (!nums.empty()) {
+        size_t size = nums.size();
+        int lBorder = 0;
+        int rBorder = size - 1;
+        if (nums[rBorder] >= target && nums[lBorder] <= target)
+        {
+            int midl = size / 2;
+            if (nums[midl] == target)
+            {
+                pos = midl;
+            }
+            else
+            {
+                while (lBorder != rBorder)
+                {
+                    int num = nums[midl];
+
+                    if (nums[rBorder] == target)
+                    {
+                        pos = rBorder;
+                        break;
+                    }
+                    else if (nums[lBorder] == target)
+                    {
+                        pos = lBorder;
+                        break;
+                    }
+                    else if (num == target)
+                    {
+                        pos = midl;
+                        break;
+                    }
+
+                    if (num <= target)
+                    {
+                        if (midl != lBorder)
+                        {
+                            lBorder = midl;
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+                    else if (num >= target)
+                    {
+                        if(midl != rBorder)
+                        {
+                            rBorder = midl;
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+
+                    size = rBorder - lBorder;
+
+                    midl = size / 2 + lBorder;
+                }
+            }
+        }
+    }
+
+    return pos;
+}
+
 ///////////////////////////////////////
 
 int main()
@@ -504,11 +621,13 @@ int main()
     //     std::cout << i << std::endl;
     // }
 //    std::vector<int> out = josephus({1, 2, 3, 4, 5, 6, 7}, 5);
-    std::vector<int> out = test({1, 2, 3, 4, 5, 6, 7}, 5);
-    for (auto item : out) {
-        std::cout << item;
-    }
-    std::cout << std::endl;
+//    std::vector<int> out = test({1, 2, 3, 4, 5, 6, 7}, 5);
+//    for (auto item : out) {
+//        std::cout << item;
+//    }
+//    std::cout << std::endl;
+    std::vector<int> vec({2});
+    qDebug() << binarySearch(vec, 2);
 
     return 0;
 }
