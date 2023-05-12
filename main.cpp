@@ -632,6 +632,58 @@ int firstBadVersion(int n)
     return res;
 }
 
+//202. Happy Number
+bool isHappy(int n)
+{
+    if (n != 1)
+    {
+        const int dec = 10;
+        std::vector<int> splitedValue;
+        int temp = n;
+        int powedNum = 0;
+        if (n == 4)
+        {
+            return false;
+        }
+        while (temp)
+        {
+            powedNum += std::pow(temp % dec, 2);
+            temp /= dec;
+        }
+        return isHappy(powedNum);
+    }
+    return true;
+}
+//
+
+//1706. Where Will the Ball Fall
+
+std::vector<int> findBall(std::vector<std::vector<int>>& grid)
+{
+    std::vector<int> outVec(grid.front().size(), 0);
+
+    for (size_t cols = 0; cols < grid.front().size(); ++cols)
+    {
+        size_t tempCols = cols;
+
+        for (size_t row = 0; row < grid.size(); ++row)
+        {
+            size_t localCols  = tempCols + grid[row][tempCols];
+
+            if (localCols < 0 || localCols >= grid.front().size() || grid[row][tempCols] != grid[row][localCols])
+            {
+                outVec[cols] = -1;
+                break;
+            }
+            outVec[cols] = localCols;
+            tempCols = localCols;
+        }
+    }
+
+    return outVec;
+}
+//
+
 ///////////////////////////////////////
 
 int main()
