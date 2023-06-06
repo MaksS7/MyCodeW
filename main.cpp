@@ -682,6 +682,29 @@ std::vector<int> findBall(std::vector<std::vector<int>>& grid)
 
     return outVec;
 }
+
+//1. Two Sum
+
+std::vector<int> twoSum(std::vector<int>& nums, int target)
+{
+    std::vector<int> out(2);
+    for (size_t i = 0; i < nums.size() - 1; ++i)
+    {
+        int temp = nums[i];
+
+        for (size_t j = i + 1; j < nums.size(); ++j)
+        {
+            if (nums[j] + temp == target)
+            {
+                out[0] = i;
+                out[1] = j;
+                return out;
+            }
+        }
+    }
+    return out;
+}
+
 //
 
 ///////////////////////////////////////
@@ -712,7 +735,9 @@ int main()
 //        std::cout << item;
 //    }
 //    std::cout << std::endl;
-    qDebug() << firstBadVersion(1);
+//    qDebug() << firstBadVersion(1);
+    std::vector<int> test = {3,4,4};
+    qDebug() << twoSum(test, 6);
 
     return 0;
 }
