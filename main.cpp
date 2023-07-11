@@ -705,6 +705,111 @@ std::vector<int> twoSum(std::vector<int>& nums, int target)
     return out;
 }
 
+//27. Remove Element
+int removeElement(std::vector<int>& nums, int val)
+{
+    int outRes = 0;
+    for (auto iter = nums.begin(); iter != nums.end() - outRes;)
+    {
+        if (*iter == val)
+        {
+            ++outRes;
+            nums.erase(iter);
+            nums.push_back(0);
+            iter = nums.begin();
+        }
+        else
+        {
+            ++iter;
+        }
+    }
+    return nums.size() - outRes;
+}
+
+//13. Roman to Integer
+//I             1
+//V             5
+//X             10
+//L             50
+//C             100
+//D             500
+//M             1000
+
+int getNumber(char elem)
+{
+    int outRes;
+    switch (elem) {
+    case 'I':
+        outRes = 1;
+        break;
+    case 'V':
+    {
+        outRes = 5;
+        break;
+    }
+    case 'X':
+    {
+        outRes = 10;
+        break;
+    }
+    case 'L':
+    {
+        outRes = 50;
+        break;
+    }
+    case 'C':
+    {
+        outRes = 100;
+        break;
+    }
+    case 'D':
+    {
+        outRes = 500;
+        break;
+    }
+    case 'M':
+    {
+        outRes = 1000;
+        break;
+    }
+    default:
+        outRes = 0;
+        break;
+
+    }
+    return outRes;
+}
+
+int romanToInt(std::string s)
+{
+    int outRes = 0;
+    int oldNum = getNumber(s[0]);
+    int curNum = oldNum;
+    for (size_t i = 1; i < s.size(); ++i)
+    {
+        curNum = getNumber(s[i]);
+        if (!oldNum)
+        {
+            oldNum = curNum;
+        }
+        else
+        {
+            if (curNum <= oldNum)
+            {
+                outRes += oldNum;
+                oldNum = curNum;
+            }
+            else
+            {
+                outRes += curNum - oldNum;
+                oldNum = 0;
+                curNum = 0;
+            }
+        }
+    }
+    outRes += curNum;
+    return outRes;
+}
 //
 
 ///////////////////////////////////////
@@ -736,8 +841,9 @@ int main()
 //    }
 //    std::cout << std::endl;
 //    qDebug() << firstBadVersion(1);
-    std::vector<int> test = {3,4,4};
-    qDebug() << twoSum(test, 6);
+    std::vector<int> test = {0,1,2,2,3,0,4,2};
+
+    qDebug() << romanToInt("MDCXCV");
 
     return 0;
 }
