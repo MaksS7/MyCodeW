@@ -6,6 +6,7 @@
 #include <map>
 #include <vector>
 #include <QDebug>
+#include "leetcodeSecond.cpp"
 
 class TwoToOne
 {
@@ -72,7 +73,7 @@ long long rowSumOddNumbers(unsigned n){
 
     int res = 0;
     int l = 0;
-    for (int i(0); i < n; i++) {
+    for (unsigned i(0); i < n; i++) {
         l += i;
     }
     while(n--){
@@ -112,12 +113,12 @@ bool XO(const std::string& str)
 
 std::vector<std::string> permutations(std::string s) {
     int loop = 0;
-    int k = 0;
+    size_t k = 0;
     std::vector<std::string> res;
     res.push_back(s);
     std::string copy;
 
-    for (int i(1); i < s.length(); i++) {
+    for (size_t i(1); i < s.length(); i++) {
         copy = s;
         s.replace(i, 1, copy, i - 1, 1);
         s.replace(i - 1, 1, copy, i, 1);
@@ -188,7 +189,7 @@ int countOneBitInNumber(int number)
     return count;
 } // 11 -> 1011 return 3 one bits;
 
-int poweredNum(std::vector<int> vec, int n)
+int poweredNum(std::vector<int> vec, size_t n)
 {
     if(vec.size() < n) {
         return -1;
@@ -199,8 +200,8 @@ int poweredNum(std::vector<int> vec, int n)
 std::vector<int> snail(const std::vector<std::vector<int>> &snail_map)
 {
     std::vector<int> res;
-    for (int i(0); i < snail_map.size(); i++) {
-        for (int j(0); j < snail_map[i].size(); i++) {
+    for (size_t i(0); i < snail_map.size(); i++) {
+        for (size_t j(0); j < snail_map[i].size(); i++) {
 
         }
     }
@@ -814,6 +815,8 @@ int romanToInt(std::string s)
 
 ///////////////////////////////////////
 
+#include <iostream>
+#include <iomanip>
 int main()
 {
     // ExampleClass cls;
@@ -841,9 +844,10 @@ int main()
 //    }
 //    std::cout << std::endl;
 //    qDebug() << firstBadVersion(1);
-    std::vector<int> test = {0,1,2,2,3,0,4,2};
+//    std::vector<int> test = {0,1,2,2,3,0,4,2};
 
-    qDebug() << romanToInt("MDCXCV");
+//    qDebug() << romanToInt("MDCXCV");
+
 
     return 0;
 }
@@ -863,3 +867,4 @@ typename std::enable_if<!std::numeric_limits<T>::is_integer, bool>::type
         // unless the result is subnormal
         || std::fabs(x - y) < std::numeric_limits<T>::min();
 }
+
