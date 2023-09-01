@@ -847,9 +847,20 @@ int main()
 //    std::vector<int> test = {0,1,2,2,3,0,4,2};
 
 //    qDebug() << romanToInt("MDCXCV");
+//    QMap <int, std::tuple<int, int>> m_MapPregapPostgapIntervals;
 
+//    m_MapPregapPostgapIntervals.clear();
+//    Solution *sl = new Solution;
+//    sl->clear();
+//    std::vector<std::vector<int>> vec = {{0,0},{2,0},{1,1},{2,1},{2,2}};
+//    sl.tictactoe(vec);
+    int a = 0;
+    int b = 0;
 
+    int d =  a / 0;
+    std::cout << 5;
     return 0;
+
 }
 
 //correct equal two double
@@ -857,6 +868,7 @@ int main()
 // d1=0.20000000000000001110
 // d2=0.19999999999999998335
 // is equal!
+//https://bitbashing.io/comparing-floats.html
 template<class T>
 typename std::enable_if<!std::numeric_limits<T>::is_integer, bool>::type
     almost_equal(T x, T y, int ulp)
