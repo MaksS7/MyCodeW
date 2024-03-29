@@ -812,7 +812,22 @@ int romanToInt(std::string s)
     return outRes;
 }
 //
+#pragma pack(push, 1)
+struct IndigoBaseMemorySampleChunk
+{
+    uint32_t sample_id;
+    uint8_t  sensor_id;
+    uint8_t  flags;
+    uint16_t len;
+};
+#pragma pack(pop)
 
+#pragma pack(push, 1)
+struct IndigoBaseMemorySampleChunkV2 : public IndigoBaseMemorySampleChunk
+{
+    uint8_t	 subSensor_id;
+};
+#pragma pack(pop)
 ///////////////////////////////////////
 
 #include <iostream>
@@ -854,11 +869,25 @@ int main()
 //    sl->clear();
 //    std::vector<std::vector<int>> vec = {{0,0},{2,0},{1,1},{2,1},{2,2}};
 //    sl.tictactoe(vec);
-    int a = 0;
-    int b = 0;
 
-    int d =  a / 0;
-    std::cout << 5;
+    //[3,4,5,6,7,8]
+//    Solution *sl = new Solution;
+//    std::vector<int> testVec = {3,4,5,6,7,8};
+////    std::vector<int> testVec = {5,1,6};
+//    int res = sl->subsetXORSum(testVec);
+//    int res2 = sl->subsetXORSumFast(testVec);
+
+//    qDebug() << res;
+//    qDebug() << res2;
+//    delete  sl;
+
+//    uint8_t test = 0x00;
+
+//    qDebug() << test;
+
+    std::cout << "POD is trivial is " << std::is_trivial<IndigoBaseMemorySampleChunkV2>() << std::endl; // true
+    std::cout << "POD is standard-layout is " << std::is_standard_layout<IndigoBaseMemorySampleChunkV2>() << std::endl; // true
+    std::cout << "POD is trivially copyable is " << std::is_trivially_copyable<IndigoBaseMemorySampleChunkV2>() << std::endl; // true
     return 0;
 
 }
