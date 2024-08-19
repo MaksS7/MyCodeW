@@ -1,8 +1,7 @@
 #include <iostream>
 #include <string>
-#include <cmath>
-#include <vector>
-#include <algorithm>
+//#include <cmath>
+//#include <algorithm>
 #include <map>
 #include <vector>
 #include <QDebug>
@@ -869,25 +868,12 @@ int main()
 //    sl->clear();
 //    std::vector<std::vector<int>> vec = {{0,0},{2,0},{1,1},{2,1},{2,2}};
 //    sl.tictactoe(vec);
+//    int res = Solution::countBinarySubstrings("0001111");
+//    qDebug() << "allcount =" << res;
 
-    //[3,4,5,6,7,8]
-//    Solution *sl = new Solution;
-//    std::vector<int> testVec = {3,4,5,6,7,8};
-////    std::vector<int> testVec = {5,1,6};
-//    int res = sl->subsetXORSum(testVec);
-//    int res2 = sl->subsetXORSumFast(testVec);
-
-//    qDebug() << res;
-//    qDebug() << res2;
-//    delete  sl;
-
-//    uint8_t test = 0x00;
-
-//    qDebug() << test;
-
-    std::cout << "POD is trivial is " << std::is_trivial<IndigoBaseMemorySampleChunkV2>() << std::endl; // true
-    std::cout << "POD is standard-layout is " << std::is_standard_layout<IndigoBaseMemorySampleChunkV2>() << std::endl; // true
-    std::cout << "POD is trivially copyable is " << std::is_trivially_copyable<IndigoBaseMemorySampleChunkV2>() << std::endl; // true
+//    bool state = Solution::areNumbersAscending("yellow marbles");
+//    bool state = Solution::areNumbersAscending("sunset is at 7 51 pm overnight lows will be in the low 50 and 60 s");
+    qDebug() <<Solution::getMaximumGenerated(3);
     return 0;
 
 }
